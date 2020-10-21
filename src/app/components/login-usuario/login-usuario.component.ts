@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormGroup, FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-login-usuario',
@@ -7,16 +8,24 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LoginUsuarioComponent implements OnInit {
 
+  loginForm: FormGroup;
+
   constructor() { }
 
   ngOnInit(): void {
+    this.loginForm = new FormGroup({
+      usuario: new FormControl ('rafa', []),
+      password: new FormControl ('81dc9bdb52d04dc20036dbd8313ed055', [])
+    });
   }
 
-
+  /**
+   * 
+   */
   autenticaUsuario() {
     var jsonObject = {
-      usuario: (<HTMLInputElement>document.getElementById("usuario")).value,  // Utilizo el id de los campos del formulario
-      password: (<HTMLInputElement>document.getElementById("password")).value
+      usuario: this.loginForm.controls.usuario.value,  // Utilizo el id de los campos del formulario
+      password: this.loginForm.controls.password.value
     };
 
     console.log("u: " + jsonObject.usuario + " - p: " + jsonObject.password);
