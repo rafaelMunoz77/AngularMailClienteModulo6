@@ -1,7 +1,7 @@
-<form> <!-- Formulario con el mínimo necesario para enviar un usuario y pasword al servidor -->
-    <input type="text" id="usuario" value="rafa"/> <!-- Establezco valores válidos en usuario y pasword, para ahorrar tiempo -->
-    <input type="password" id="password" value="81dc9bdb52d04dc20036dbd8313ed055"/>
-    <button type="button" (click)="autenticaUsuario()">Autenticar</button>  <!-- El botón llama a la función autenticaUsuario. Mucho cuidado de utilizar <button> y no un <input type="submit"> -->
-</form>
-<div id="respuestaDelServidor"></div>
+    <form [formGroup]="loginForm"> 
+        <input type="text" id="usuario" formControlName="usuario"/> 
+        <input type="password" id="password" formControlName="password"/>
+        <button type="button" (click)="autenticaUsuario()">Autenticar</button>  
+    </form>
+    <div id="respuestaDelServidor"></div>
 
