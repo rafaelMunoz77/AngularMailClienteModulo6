@@ -6,11 +6,13 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginUsuarioComponent } from './components/login-usuario/login-usuario.component';
+import { ListadoMensajesComponent } from './components/listado-mensajes/listado-mensajes.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    LoginUsuarioComponent
+    LoginUsuarioComponent,
+    ListadoMensajesComponent
   ],
   imports: [
     BrowserModule,

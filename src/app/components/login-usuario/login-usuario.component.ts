@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { UsuarioService } from '../../services/usuario.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login-usuario',
@@ -11,7 +12,7 @@ export class LoginUsuarioComponent implements OnInit {
 
   loginForm: FormGroup;
 
-  constructor(private usuarioService: UsuarioService) { }
+  constructor(private usuarioService: UsuarioService, private router: Router) { }
 
   ngOnInit(): void {
     this.loginForm = new FormGroup({
@@ -26,7 +27,13 @@ export class LoginUsuarioComponent implements OnInit {
   autenticaUsuario() {
     this.usuarioService.autenticaUsuario(this.loginForm.controls.usuario.value,
       this.loginForm.controls.password.value).subscribe(data => {
-        console.log(data.jwt);
+        console.log(data);
+        if (data.jwt != undefined) {
+          this.router.navigate(['/listadoMensajes']);
+        }
+        else {
+          console.log('Datos incorrectos');
+        }
       });
 
 /*
