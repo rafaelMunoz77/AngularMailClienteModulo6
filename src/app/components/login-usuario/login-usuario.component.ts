@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-login-usuario',
@@ -10,7 +11,7 @@ export class LoginUsuarioComponent implements OnInit {
 
   loginForm: FormGroup;
 
-  constructor() { }
+  constructor(private http: HttpClient) { }
 
   ngOnInit(): void {
     this.loginForm = new FormGroup({
@@ -24,11 +25,16 @@ export class LoginUsuarioComponent implements OnInit {
    */
   autenticaUsuario() {
     console.log('Usuario válido?: ' + this.loginForm.controls.usuario.valid);
-/*    var jsonObject = {
+    var jsonObject = {
       usuario: this.loginForm.controls.usuario.value,  // Utilizo el id de los campos del formulario
       password: this.loginForm.controls.password.value
     };
 
+    this.http.post('http://localhost:8080/usuario/autentica', jsonObject).subscribe(jwt => {
+      console.log(jwt);
+    });
+
+    /*
     console.log("u: " + jsonObject.usuario + " - p: " + jsonObject.password);
 
     var xhttp = new XMLHttpRequest();
