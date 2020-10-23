@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { tap } from 'rxjs/operators';
+import { DatosConJwt } from '../interfaces/interfaces'
 
 
 @Injectable({
@@ -14,13 +16,17 @@ export class UsuarioService {
   /**
    * 
    */
-  autenticaUsuario (usuario: string, password: string) : Observable<object> {
+  autenticaUsuario (usuario: string, password: string) : Observable<DatosConJwt> {
     var jsonObject = {
       usuario: usuario,
       password: password
     };
 
-    return this.http.post('http://localhost:8080/usuario/autentica', jsonObject);
+    return this.http.post<DatosConJwt>('http://localhost:8080/usuario/autentica', jsonObject).pipe(
+      tap(data => { 
+        console.log('Desde tap miro los datos recibidos: ' + data["jwt"]);
+      })
+    ); 
 
   }
 }
