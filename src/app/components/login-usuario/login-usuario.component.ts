@@ -26,7 +26,7 @@ export class LoginUsuarioComponent implements OnInit {
   autenticaUsuario() {
     this.usuarioService.autenticaUsuario(this.loginForm.controls.usuario.value,
       this.loginForm.controls.password.value).subscribe(data => {
-        console.log(data);
+        console.log(data.jwt);
       });
 
 /*
