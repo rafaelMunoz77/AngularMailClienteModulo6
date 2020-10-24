@@ -3,18 +3,35 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { UsuarioService } from '../../services/usuario.service';
 import { Router } from '@angular/router';
 
+/**
+ * Decorador que especifica a esta clase Typescript como un componente, con su selector
+ * y su cara visible (html + estilos)
+ */
 @Component({
   selector: 'app-login-usuario',
   templateUrl: './login-usuario.component.html',
   styleUrls: ['./login-usuario.component.scss']
 })
+
+/**
+ * Este componente se ocupa de permitir que podamos autenticar a un usuario
+ */
 export class LoginUsuarioComponent implements OnInit {
 
-  loginForm: FormGroup;
+  // Propiedades de la clase
+  loginForm: FormGroup; // Permite tener un objeto linkado a los campos del formulario de autenticación
 
+  /**
+   * Le pido al inyector de código que genere objetos de determinados tipos, útiles
+   */
   constructor(private usuarioService: UsuarioService, private router: Router) { }
 
+  /**
+   * Hook al momento de inicialización del componente
+   */
   ngOnInit(): void {
+    // Inicializo el objeto FormGroup, es la base para usar formularios reactivos, en los que la validación
+    // y el control son muy fáciles de realizar.
     this.loginForm = new FormGroup({
       usuario: new FormControl ('rafa', [Validators.required, Validators.minLength(4)]),
       password: new FormControl ('81dc9bdb52d04dc20036dbd8313ed055', [])
@@ -22,9 +39,11 @@ export class LoginUsuarioComponent implements OnInit {
   }
 
   /**
-   * 
+   * Método que autentica un usuario con los valores expuestos en el formulario del template
    */
   autenticaUsuario() {
+    // Utilizo el "UsuarioService" para enviar los datos de logado y subscribirme a la respuesta del 
+    // servidor
     this.usuarioService.autenticaUsuario(this.loginForm.controls.usuario.value,
       this.loginForm.controls.password.value).subscribe(data => {
         console.log(data);
@@ -35,30 +54,6 @@ export class LoginUsuarioComponent implements OnInit {
           console.log('Datos incorrectos');
         }
       });
-
-/*
-    console.log('Usuario válido?: ' + this.loginForm.controls.usuario.valid);
-    var jsonObject = {
-      usuario: ,  // Utilizo el id de los campos del formulario
-      password: 
-    };
-
-    this.http.post('http://localhost:8080/usuario/autentica', jsonObject).subscribe(jwt => {
-      console.log(jwt);
-    });
-
-    /*
-    console.log("u: " + jsonObject.usuario + " - p: " + jsonObject.password);
-
-    var xhttp = new XMLHttpRequest();
-    xhttp.onreadystatechange = function () {
-      if (this.readyState == 4 && this.status == 200) {
-        document.getElementById("respuestaDelServidor").innerHTML = this.response;
-      }
-    };
-    xhttp.open("POST", "http://localhost:8080/usuario/autentica", true);
-    xhttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
-    xhttp.send(JSON.stringify(jsonObject)); */
   }
 
 }
