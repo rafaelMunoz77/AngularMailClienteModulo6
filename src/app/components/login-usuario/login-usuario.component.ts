@@ -35,7 +35,7 @@ export class LoginUsuarioComponent implements OnInit {
     // y el control son muy fáciles de realizar.
     this.loginForm = new FormGroup({
       usuario: new FormControl ('rafa', [Validators.required, Validators.minLength(4)]),
-      password: new FormControl ('81dc9bdb52d04dc20036dbd8313ed055', [])
+      password: new FormControl ('1234', [])
     });
   }
 
