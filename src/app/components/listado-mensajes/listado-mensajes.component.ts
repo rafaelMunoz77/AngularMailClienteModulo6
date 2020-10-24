@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MensajeService } from '../../services/mensaje.service';
+import { Mensaje } from '../../interfaces/interfaces';
 
 /**
  * Decorador que permite que esta clase sea un componente, se debe especificar:
@@ -19,6 +20,8 @@ import { MensajeService } from '../../services/mensaje.service';
  */
 export class ListadoMensajesComponent implements OnInit {
 
+  listaMensajes: Mensaje[];
+
   /**
    * A través del constructor llamo al inyector de objetos y le pido uno de tipo MensajeService
    */
@@ -29,7 +32,11 @@ export class ListadoMensajesComponent implements OnInit {
    */
   ngOnInit(): void {
     this.mensajeService.getListadoMensajes(0, 10).subscribe(data => {
-      console.log(data);
+      console.log(data); // saco en consola los mensajes recibidos
+      this.listaMensajes = data;
+      this.listaMensajes.forEach(mensaje => {
+        console.log(mensaje); // Para cada mensaje recibido, lo saco en la consola
+      })
     });
   }
 
