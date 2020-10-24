@@ -2,3 +2,11 @@
 export interface DatosConJwt {
     jwt: string;
 } 
+
+// Estructura de un mensaje
+export interface Mensaje {
+    id: number;
+    asunto: string;
+    cuerpo: string;
+    fecha: Date;
+}

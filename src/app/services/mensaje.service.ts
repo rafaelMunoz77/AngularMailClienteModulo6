@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
+import { Mensaje } from '../interfaces/interfaces';
 
 
 // El decorador @Inyectable permite que el inyector de código cree una instancia de esta
@@ -25,8 +26,8 @@ export class MensajeService {
   /**
    * Pide una página (conjunto ordenador de mensajes) al servidor. La paginación es necesaria.
    */
-  getListadoMensajes(pagina: number, lineasPorPagina: number): Observable<object> {
-    return this.http.get<object>('/mensajes/recibidos?pagina=' + pagina + 
+  getListadoMensajes(pagina: number, lineasPorPagina: number): Observable<Mensaje[]> {
+    return this.http.get<Mensaje[]>('/mensajes/recibidos?pagina=' + pagina + 
       '&mensajesPorPagina=' + lineasPorPagina).pipe(
 //      tap(data => console.log(data)), // Si deseas hacer algo con los datos obtenidos, puedes hacerlo en esta línea
     );
