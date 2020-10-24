@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { UsuarioService } from '../../services/usuario.service';
 import { Router } from '@angular/router';
+import { AutenticadorJwtService } from '../../services/autenticador-jwt.service'; 
 
 /**
  * Decorador que especifica a esta clase Typescript como un componente, con su selector
@@ -24,7 +25,7 @@ export class LoginUsuarioComponent implements OnInit {
   /**
    * Le pido al inyector de código que genere objetos de determinados tipos, útiles
    */
-  constructor(private usuarioService: UsuarioService, private router: Router) { }
+  constructor(private usuarioService: UsuarioService, private router: Router, private autenticadorJwtService: AutenticadorJwtService) { }
 
   /**
    * Hook al momento de inicialización del componente
@@ -48,8 +49,9 @@ export class LoginUsuarioComponent implements OnInit {
       this.loginForm.controls.password.value).subscribe(data => {
         console.log(data);
         if (data.jwt != undefined) {
+          this.autenticadorJwtService.almacenaJWT(data.jwt);
           this.router.navigate(['/listadoMensajes']);
-        }
+        } 
         else {
           console.log('Datos incorrectos');
         }
