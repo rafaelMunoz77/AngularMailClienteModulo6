@@ -3,6 +3,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { UsuarioService } from '../../services/usuario.service';
 import { Router } from '@angular/router';
 import { AutenticadorJwtService } from '../../services/autenticador-jwt.service'; 
+import { ComunicacionDeAlertasService } from '../../services/comunicacion-de-alertas.service';
 
 /**
  * Decorador que especifica a esta clase Typescript como un componente, con su selector
@@ -27,7 +28,8 @@ export class LoginUsuarioComponent implements OnInit {
   /**
    * Le pido al inyector de código que genere objetos de determinados tipos, útiles
    */
-  constructor(private usuarioService: UsuarioService, private router: Router, private autenticadorJwtService: AutenticadorJwtService) { }
+  constructor(private usuarioService: UsuarioService, private router: Router, 
+    private autenticadorJwtService: AutenticadorJwtService, private comunicacionAlertas: ComunicacionDeAlertasService) { }
 
   /**
    * Hook al momento de inicialización del componente
@@ -45,17 +47,19 @@ export class LoginUsuarioComponent implements OnInit {
    * Método que autentica un usuario con los valores expuestos en el formulario del template
    */
   autenticaUsuario() {
+    // Inicio un diálogo de carga
+    this.comunicacionAlertas.abrirDialogCargando();
     // Utilizo el "UsuarioService" para enviar los datos de logado y subscribirme a la respuesta del 
     // servidor
     this.usuarioService.autenticaUsuario(this.loginForm.controls.usuario.value,
       this.loginForm.controls.password.value).subscribe(data => {
-//        console.log(data);
         if (data.jwt != undefined) {
           this.autenticadorJwtService.almacenaJWT(data.jwt);
           this.router.navigate(['/listadoMensajes']);
+          this.comunicacionAlertas.cerrarDialogo();
         } 
         else {
-          console.log('Datos incorrectos');
+          this.comunicacionAlertas.abrirDialogError('El usuario y contraseña introducidos no permiten el acceso');
         }
       });
   }
