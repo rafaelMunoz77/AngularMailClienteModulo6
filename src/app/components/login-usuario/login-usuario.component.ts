@@ -54,9 +54,10 @@ export class LoginUsuarioComponent implements OnInit {
     this.usuarioService.autenticaUsuario(this.loginForm.controls.usuario.value,
       this.loginForm.controls.password.value).subscribe(data => {
         if (data.jwt != undefined) {
-          this.autenticadorJwtService.almacenaJWT(data.jwt);
-          this.router.navigate(['/listadoMensajes']);
-          this.comunicacionAlertas.cerrarDialogo();
+          this.autenticadorJwtService.almacenaJWT(data.jwt); // Almaceno un nuevo JWT
+          this.router.navigate(['/listadoMensajes']); // Navego hasta listado de mensajes
+          this.comunicacionAlertas.cerrarDialogo(); // Cierro el diálogo de espera
+          this.usuarioService.emitirNuevoCambioEnUsuarioAutenticado(); // Emito evento de cambio en usuario autenticado
         } 
         else {
           this.comunicacionAlertas.abrirDialogError('El usuario y contraseña introducidos no permiten el acceso');

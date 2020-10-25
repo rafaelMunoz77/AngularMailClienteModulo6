@@ -6,8 +6,8 @@
   
       <span class="spacer"></span>
   
-      <ng-container>
-        <button mat-button [matMenuTriggerFor]="menu" matTooltip="Usuario">
+      <ng-container *ngIf="usuarioAutenticado != null">
+        <button mat-button [matMenuTriggerFor]="menu" matTooltip="{{usuarioAutenticado.nombre}}">
             <mat-icon>account_circle</mat-icon>
         </button>
         <mat-menu #menu="matMenu">
