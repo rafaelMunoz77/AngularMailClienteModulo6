@@ -22,6 +22,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { ImagenUsuarioComponent } from './components/imagen-usuario/imagen-usuario.component';
 
 
 
@@ -31,7 +32,8 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     LoginUsuarioComponent,
     ListadoMensajesComponent,
     DialogoGeneralComponent,
-    BarraHerramientasComponent
+    BarraHerramientasComponent,
+    ImagenUsuarioComponent
   ],
   imports: [
     BrowserModule,

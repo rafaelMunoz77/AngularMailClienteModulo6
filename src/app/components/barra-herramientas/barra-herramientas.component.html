@@ -8,8 +8,8 @@
   
       <ng-container *ngIf="usuarioAutenticado != null">
         <button mat-button [matMenuTriggerFor]="menu" matTooltip="{{usuarioAutenticado.nombre}}">
-            <mat-icon>account_circle</mat-icon>
-        </button>
+          <app-imagen-usuario [usuario]="usuarioAutenticado" [width]="50" [height]="50"></app-imagen-usuario>
+        </button> 
         <mat-menu #menu="matMenu">
           <button mat-menu-item (click)="navegarHaciaDatosPersonales()">
             <mat-icon>account_circle</mat-icon>Modificar mis datos
@@ -22,7 +22,7 @@
             <mat-icon>exit_to_app</mat-icon>
             <span>Abandonar la sesión</span>
           </button>
-        </mat-menu>
+        </mat-menu> 
       </ng-container>
     </mat-toolbar-row>
   </mat-toolbar>
