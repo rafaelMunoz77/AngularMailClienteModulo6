@@ -9,6 +9,7 @@ import { LoginUsuarioComponent } from './components/login-usuario/login-usuario.
 import { ListadoMensajesComponent } from './components/listado-mensajes/listado-mensajes.component';
 import { HttpInterceptorService } from './services/http-interceptor.service';
 import { DialogoGeneralComponent } from './components/dialogo-general/dialogo-general.component';
+import { BarraHerramientasComponent } from './components/barra-herramientas/barra-herramientas.component';
 
 import { MatCardModule } from '@angular/material/card';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -18,8 +19,9 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatDialogModule } from '@angular/material/dialog';
-
-
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 
 
@@ -28,7 +30,8 @@ import { MatDialogModule } from '@angular/material/dialog';
     AppComponent,
     LoginUsuarioComponent,
     ListadoMensajesComponent,
-    DialogoGeneralComponent
+    DialogoGeneralComponent,
+    BarraHerramientasComponent
   ],
   imports: [
     BrowserModule,
@@ -42,7 +45,10 @@ import { MatDialogModule } from '@angular/material/dialog';
     MatFormFieldModule,
     MatInputModule,
     MatProgressSpinnerModule,
-    MatDialogModule
+    MatDialogModule,
+    MatToolbarModule,
+    MatMenuModule,
+    MatTooltipModule
   ],
   providers: [{provide: HTTP_INTERCEPTORS, useClass: HttpInterceptorService, multi: true }],
   bootstrap: [AppComponent]
