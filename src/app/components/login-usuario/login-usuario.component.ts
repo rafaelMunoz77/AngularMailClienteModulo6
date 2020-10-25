@@ -21,6 +21,8 @@ export class LoginUsuarioComponent implements OnInit {
 
   // Propiedades de la clase
   loginForm: FormGroup; // Permite tener un objeto linkado a los campos del formulario de autenticación
+  ocultarPassword: boolean = true; // Utilizado para conocer si se muestra u oculta el contenido del campo password
+
 
   /**
    * Le pido al inyector de código que genere objetos de determinados tipos, útiles
@@ -35,7 +37,7 @@ export class LoginUsuarioComponent implements OnInit {
     // y el control son muy fáciles de realizar.
     this.loginForm = new FormGroup({
       usuario: new FormControl ('rafa', [Validators.required, Validators.minLength(4)]),
-      password: new FormControl ('1234', [])
+      password: new FormControl ('1234', [Validators.required])
     });
   }
 
