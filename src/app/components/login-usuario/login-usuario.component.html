@@ -1,9 +1,20 @@
-    <form [formGroup]="loginForm"> 
-        <input type="text" id="usuario" formControlName="usuario"/> 
-        <div *ngIf="this.loginForm.controls.usuario.errors?.required">El usuario es obligatorio, ponlo!!</div>
-        <div *ngIf="this.loginForm.controls.usuario.errors?.minlength">Tiene que tener 4 caractes, al menos</div>
-        <input type="password" id="password" formControlName="password"/>
-        <button type="button" (click)="autenticaUsuario()">Autenticar</button>  
-    </form>
-    <div id="respuestaDelServidor"></div>
+<div class="main-div">
+    <mat-card class="loginCard">
+        <mat-card-header>
+            <mat-card-title>Iniciar sesión</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+            hola
+        </mat-card-content>
+    </mat-card>
+</div>
 
+
+<form [formGroup]="loginForm">
+    <input type="text" id="usuario" formControlName="usuario" />
+    <div *ngIf="this.loginForm.controls.usuario.errors?.required">El usuario es obligatorio, ponlo!!</div>
+    <div *ngIf="this.loginForm.controls.usuario.errors?.minlength">Tiene que tener 4 caractes, al menos</div>
+    <input type="password" id="password" formControlName="password" />
+    <button type="button" (click)="autenticaUsuario()">Autenticar</button>
+</form>
+<div id="respuestaDelServidor"></div>
