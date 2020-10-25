@@ -10,3 +10,17 @@ export interface Mensaje {
     cuerpo: string;
     fecha: Date;
 }
+
+// Datos de un usuario
+export interface Usuario {
+    id: number;
+    nombre: string;
+    usuario: string;
+    password: string;
+    email: string;
+    fechaNacimiento: Date;
+    fechaEliminacion: Date;
+    nacionalidad: number;
+    sexo: number;
+    imagen: string;
+  }
