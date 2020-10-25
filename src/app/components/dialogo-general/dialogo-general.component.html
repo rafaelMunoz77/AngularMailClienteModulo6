@@ -1,0 +1,31 @@
+<div *ngIf="data.tipoDialogo == dialogTypesClass.ESPERANDO"><mat-spinner></mat-spinner></div>
+
+<div *ngIf="data.tipoDialogo == dialogTypesClass.ERROR">
+    <h1 mat-dialog-title><mat-icon aria-hidden="false" aria-label="Error">error_outline</mat-icon></h1>
+    
+    <div mat-dialog-content>{{data.texto}}</div>
+    <div mat-dialog-actions>
+        <button mat-button mat-dialog-close>Cerrar</button>
+    </div>
+</div>
+
+<div *ngIf="data.tipoDialogo == dialogTypesClass.CONFIRMACION">
+  <h1 mat-dialog-title><mat-icon aria-hidden="false" aria-label="Question">question_answer</mat-icon></h1>
+  <div mat-dialog-content>
+    <div mat-dialog-content>{{data.texto}}</div>
+  </div>
+  <div mat-dialog-actions>
+    <button mat-button [mat-dialog-close]="dialogTypesClass.RESPUESTA_CANCELAR" cdkFocusInitial>Cancelar</button>
+    <button mat-button [mat-dialog-close]="dialogTypesClass.RESPUESTA_ACEPTAR" >Aceptar</button>
+  </div>
+</div>
+
+<div *ngIf="data.tipoDialogo == dialogTypesClass.INFORMACION">
+  <h1 mat-dialog-title><mat-icon aria-hidden="false" aria-label="Info">info</mat-icon></h1>
+  <div mat-dialog-content>
+    <div mat-dialog-content>{{data.texto}}</div>
+  </div>
+  <div mat-dialog-actions>
+    <button mat-button [mat-dialog-close]="dialogTypesClass.RESPUESTA_ACEPTAR" cdkFocusInitial>Aceptar</button>
+  </div>
+</div>
