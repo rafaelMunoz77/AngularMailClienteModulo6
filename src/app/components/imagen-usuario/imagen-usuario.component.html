@@ -1,0 +1,6 @@
+<div *ngIf="usuario == null || (usuario != null && usuario.imagen == null); else elseBlock">
+    <img id="imagenRemitente" width="{{this.width}}" height="{{this.height}}" src="assets/images/usuarioGenerico.jpg" alt="">
+</div>
+<ng-template #elseBlock>
+    <img id="imagenRemitente" width="{{this.width}}" height="{{this.height}}" src="data:image/png;base64,{{usuario.imagen}}" alt="">
+</ng-template>
