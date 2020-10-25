@@ -10,6 +10,13 @@ import { ListadoMensajesComponent } from './components/listado-mensajes/listado-
 import { HttpInterceptorService } from './services/http-interceptor.service';
 
 import { MatCardModule } from '@angular/material/card';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
+
+
 
 @NgModule({
   declarations: [
@@ -20,9 +27,14 @@ import { MatCardModule } from '@angular/material/card';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    ReactiveFormsModule,
+    BrowserAnimationsModule,
     HttpClientModule,
-    MatCardModule
+    ReactiveFormsModule,
+    MatButtonModule,
+    MatIconModule,
+    MatCardModule,
+    MatFormFieldModule,
+    MatInputModule
   ],
   providers: [{provide: HTTP_INTERCEPTORS, useClass: HttpInterceptorService, multi: true }],
   bootstrap: [AppComponent]
