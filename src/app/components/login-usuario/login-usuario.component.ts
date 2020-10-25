@@ -47,7 +47,7 @@ export class LoginUsuarioComponent implements OnInit {
     // servidor
     this.usuarioService.autenticaUsuario(this.loginForm.controls.usuario.value,
       this.loginForm.controls.password.value).subscribe(data => {
-        console.log(data);
+//        console.log(data);
         if (data.jwt != undefined) {
           this.autenticadorJwtService.almacenaJWT(data.jwt);
           this.router.navigate(['/listadoMensajes']);

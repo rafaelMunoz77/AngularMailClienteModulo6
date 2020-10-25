@@ -32,11 +32,11 @@ export class ListadoMensajesComponent implements OnInit {
    */
   ngOnInit(): void {
     this.mensajeService.getListadoMensajes(0, 10).subscribe(data => {
-      console.log(data); // saco en consola los mensajes recibidos
+//      console.log(data); // saco en consola los mensajes recibidos
       this.listaMensajes = data;
-      this.listaMensajes.forEach(mensaje => {
-        console.log(mensaje); // Para cada mensaje recibido, lo saco en la consola
-      })
+//      this.listaMensajes.forEach(mensaje => {
+//        console.log(mensaje); // Para cada mensaje recibido, lo saco en la consola
+//      })
     });
   }
 

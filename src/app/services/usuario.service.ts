@@ -34,7 +34,7 @@ export class UsuarioService {
     // Envío la petición http y devuelvo el Observable, para que cualquiera pueda subscribirse.
     return this.http.post<DatosConJwt>('/usuario/autentica', jsonObject).pipe(
       tap(data => { 
-        console.log('Desde tap miro los datos recibidos: ' + data["jwt"]);
+//        console.log('Desde tap miro los datos recibidos: ' + data["jwt"]);
       })
     ); 
 
