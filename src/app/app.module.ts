@@ -9,6 +9,8 @@ import { LoginUsuarioComponent } from './components/login-usuario/login-usuario.
 import { ListadoMensajesComponent } from './components/listado-mensajes/listado-mensajes.component';
 import { HttpInterceptorService } from './services/http-interceptor.service';
 
+import { MatCardModule } from '@angular/material/card';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -19,7 +21,8 @@ import { HttpInterceptorService } from './services/http-interceptor.service';
     BrowserModule,
     AppRoutingModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    MatCardModule
   ],
   providers: [{provide: HTTP_INTERCEPTORS, useClass: HttpInterceptorService, multi: true }],
   bootstrap: [AppComponent]
