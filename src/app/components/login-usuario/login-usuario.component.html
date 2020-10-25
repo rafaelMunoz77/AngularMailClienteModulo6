@@ -5,17 +5,24 @@
         </mat-card-header>
         <img mat-card-image src="assets/images/login.png" alt="">
         <mat-card-content>
-            hola 
+            <form [formGroup]="loginForm">
+                <mat-form-field appearance="outline">
+                    <mat-label>Usuario</mat-label>
+                    <input matInput placeholder="Tu nombre de usuario" formControlName="usuario">
+                    <mat-hint></mat-hint>
+                </mat-form-field>
+
+                <mat-form-field appearance="outline">
+                    <mat-label>Contraseña</mat-label>
+                    <input matInput type="password" formControlName="password">
+                    <button mat-icon-button matSuffix>
+                        <mat-icon>visibility_off</mat-icon>
+                    </button>
+                </mat-form-field>
+            </form>
         </mat-card-content>
+        <mat-card-actions>
+            <button mat-raised-button color="primary" (click)="autenticaUsuario()">Entrar</button>
+        </mat-card-actions>
     </mat-card>
 </div>
-
-
-<form [formGroup]="loginForm">
-    <input type="text" id="usuario" formControlName="usuario" />
-    <div *ngIf="this.loginForm.controls.usuario.errors?.required">El usuario es obligatorio, ponlo!!</div>
-    <div *ngIf="this.loginForm.controls.usuario.errors?.minlength">Tiene que tener 4 caractes, al menos</div>
-    <input type="password" id="password" formControlName="password" />
-    <button type="button" (click)="autenticaUsuario()">Autenticar</button>
-</form>
-<div id="respuestaDelServidor"></div>
