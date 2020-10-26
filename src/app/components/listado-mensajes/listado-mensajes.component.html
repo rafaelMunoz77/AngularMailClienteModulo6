@@ -9,8 +9,8 @@
         <tr *ngFor="let mensaje of listaMensajes">
             <td>{{mensaje.id}}</td>
             <td>{{mensaje.asunto}}</td>
-            <td>{{mensaje.fecha | date:'dd/MM/yy HH:mm'}}</td>
+            <td>{{mensaje.fecha}}</td>
             <td>{{mensaje.cuerpo.substring(0, 30) + '.....'}}</td>
         </tr>
     </tbody>
-</table>
+</table>>
