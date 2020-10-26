@@ -23,6 +23,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { ImagenUsuarioComponent } from './components/imagen-usuario/imagen-usuario.component';
+import { CambioPasswordComponent } from './components/cambio-password/cambio-password.component';
 
 
 
@@ -33,7 +34,8 @@ import { ImagenUsuarioComponent } from './components/imagen-usuario/imagen-usuar
     ListadoMensajesComponent,
     DialogoGeneralComponent,
     BarraHerramientasComponent,
-    ImagenUsuarioComponent
+    ImagenUsuarioComponent,
+    CambioPasswordComponent
   ],
   imports: [
     BrowserModule,
