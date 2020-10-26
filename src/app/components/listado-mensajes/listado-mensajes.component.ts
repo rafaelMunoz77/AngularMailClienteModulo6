@@ -26,17 +26,21 @@ import { UsuarioService } from '../../services/usuario.service';
  */
 export class ListadoMensajesComponent implements OnInit, AfterViewInit {
   usuarioAutenticado: Usuario; // Mantenemos aquí al usuario autenticado en la aplicación, será útil
-  nombresDeColumnas: string[] = ['De', 'Asunto', 'Fecha'];  // Etiquetas a mostrar en la tabla
+  nombresDeColumnas: string[] = ['Select', 'De', 'Asunto', 'Fecha'];  // Etiquetas a mostrar en la tabla
   listadoMensajes: ListadoMensajes = {  // Estructura de datos recibidos desde el servidor.
     mensajes: [],
     totalMensajes: 0
   };
   tipoListadoMensajes: number = 0; // Indica mensajes recibidos. El código es  0 -> Recibidos  1 -> Enviados
-                                    // 2 -> SPAM    3-> Archivados
+  // 2 -> SPAM    3-> Archivados
   // Las tablas en material funcionan con su propio origen de datos, llamado MatTableDataSource, basado en 
   // rows (filas). Nosotros parametrizamos el MatTableDataSource para indicar que recibimos datos de tipo 
   // "Mensaje" y en el constructor del MatTableDataSource pasamos el array de mensajes
   dataSourceTabla = new MatTableDataSource<Mensaje>(this.listadoMensajes.mensajes);
+  // Lista de mensajes seleccionados. Cuando hagamos clic sobre el checkbox de cada mensaje, modificaremos
+  // esta lista de mensajes seleccionados
+  selection = new SelectionModel<Mensaje>(true, []);
+
 
   /**
    * A través del constructor llamo al inyector de objetose
@@ -89,13 +93,40 @@ export class ListadoMensajesComponent implements OnInit, AfterViewInit {
     });
   }
 
-/**
- * Ejecutado este método cuando se hace click sobre una fila de la tabla. Como el MatTableDataSource está
- * construído con objetos de tip "Mensaje", cuando se hace click sobre una fila, en realidad, se hace click
- * sobre un mensaje.
- */
+  /**
+   * Ejecutado este método cuando se hace click sobre una fila de la tabla. Como el MatTableDataSource está
+   * construído con objetos de tip "Mensaje", cuando se hace click sobre una fila, en realidad, se hace click
+   * sobre un mensaje.
+   */
   seleccionarMensaje(mensaje: Mensaje) {
     console.log(mensaje);
+  }
+
+
+  verMensajesSeleccionados() {
+    console.log(this.selection);
+  }
+
+  /** Whether the number of selected elements matches the total number of rows. */
+  isAllSelected() {
+    const numSelected = this.selection.selected.length;
+    const numRows = this.dataSourceTabla.data.length;
+    return numSelected === numRows;
+  }
+
+  /** Selects all rows if they are not all selected; otherwise clear selection. */
+  masterToggle() {
+    this.isAllSelected() ?
+      this.selection.clear() :
+      this.dataSourceTabla.data.forEach(row => this.selection.select(row));
+  }
+
+  /** The label for the checkbox on the passed row */
+  checkboxLabel(row?: Mensaje): string {
+    if (!row) {
+      return `${this.isAllSelected() ? 'select' : 'deselect'} all`;
+    }
+    return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.id + 1}`;
   }
 
 }
