@@ -1,5 +1,13 @@
 <div class="contenedorTabla">
 
+    <mat-toolbar style="margin: 0px 10px;">
+        <span class="example-spacer"></span>
+        <mat-paginator [length]="listadoMensajes.totalMensajes" [pageIndex]="0" [pageSize]="10" [hidePageSize]="true"
+            [pageSizeOptions]="[5, 10, 25, 100]" (page)="actualizaListadoMensajes()" [showFirstLastButtons]="true">
+        </mat-paginator>
+    </mat-toolbar>
+
+
     <mat-tab-group (selectedTabChange)="cambioEnTiposDeMensajesVisualizados($event.index)" animationDuration="0ms">
         <mat-tab>
             <ng-template mat-tab-label>
@@ -61,5 +69,5 @@
         <tr mat-header-row *matHeaderRowDef="nombresDeColumnas" hidden="hidden"></tr>
         <tr mat-row *matRowDef="let row; columns: nombresDeColumnas;" class="element-row {{row.leido ? '' : 'noLeido'}}"
             (click)="seleccionarMensaje(row)"></tr>
-    </table>  
+    </table>
 </div>

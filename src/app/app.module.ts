@@ -31,10 +31,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatTableModule } from '@angular/material/table';
 import { MatTabsModule } from '@angular/material/tabs';
-
-
-
-
+import { MatPaginatorModule } from '@angular/material/paginator';
 
 
 
@@ -70,7 +67,8 @@ import { MatTabsModule } from '@angular/material/tabs';
     MatSelectModule,
     MatCheckboxModule,
     MatTableModule,
-    MatTabsModule
+    MatTabsModule,
+    MatPaginatorModule
   ],
   providers: [{provide: HTTP_INTERCEPTORS, useClass: HttpInterceptorService, multi: true },
               {provide: MAT_DATE_LOCALE, useValue: 'es-ES'}], /* Necesario para que las fechas tengan formato español dd/MM/aaaa */ 
