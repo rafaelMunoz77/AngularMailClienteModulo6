@@ -28,6 +28,10 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatDatepickerModule } from '@angular/material/datepicker'; 
 import { MatNativeDateModule, MAT_DATE_LOCALE } from '@angular/material/core';
 import { MatSelectModule } from '@angular/material/select';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatTableModule } from '@angular/material/table';
+
+
 
 
 
@@ -61,7 +65,9 @@ import { MatSelectModule } from '@angular/material/select';
     MatTooltipModule,
     MatDatepickerModule,
     MatNativeDateModule,
-    MatSelectModule
+    MatSelectModule,
+    MatCheckboxModule,
+    MatTableModule
   ],
   providers: [{provide: HTTP_INTERCEPTORS, useClass: HttpInterceptorService, multi: true },
               {provide: MAT_DATE_LOCALE, useValue: 'es-ES'}], /* Necesario para que las fechas tengan formato español dd/MM/aaaa */ 
