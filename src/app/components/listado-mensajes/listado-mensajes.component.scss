@@ -1,10 +1,17 @@
-.example-container {
+.contenedorTabla {
     position: relative;
     min-height: 200px;
 }
   
-.example-table-container {
-    position: relative;
-    /*    max-height: 400px;
-    overflow: auto; */
+table {
+    width: 100%;
+  }
+
+tr.element-row:hover {
+    background: whitesmoke;
+    cursor:pointer
+}
+
+.noLeido {
+    font-weight: bold;
 }

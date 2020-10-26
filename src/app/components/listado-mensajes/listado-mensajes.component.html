@@ -1,16 +1,26 @@
-<table width="100%" border="1">
-    <thead>
-        <th>id</th>
-        <th>Asunto</th>
-        <th>Fecha</th>
-        <th>Cuerpo</th>
-    </thead>
-    <tbody>
-        <tr *ngFor="let mensaje of listaMensajes">
-            <td>{{mensaje.id}}</td>
-            <td>{{mensaje.asunto}}</td>
-            <td>{{mensaje.fecha}}</td>
-            <td>{{mensaje.cuerpo.substring(0, 30) + '.....'}}</td>
-        </tr>
-    </tbody>
-</table>>
+<div class="contenedorTabla">
+        <table mat-table [dataSource]="dataSourceTabla" class="example-table" id="tablaMensajes">
+ 
+            <!-- Columna "De" -->
+            <ng-container matColumnDef="De">
+                <th mat-header-cell *matHeaderCellDef>De</th>
+                <td mat-cell *matCellDef="let row">{{row.remitente.nombre}}</td>
+            </ng-container>
+
+            <!-- Columna "Asunto" -->
+            <ng-container matColumnDef="Asunto">
+                <th mat-header-cell *matHeaderCellDef>Asunto</th>
+                <td mat-cell *matCellDef="let row">{{row.asunto}}</td>
+            </ng-container>
+
+            <!-- Columna "Fecha" -->
+            <ng-container matColumnDef="Fecha">
+                <th mat-header-cell *matHeaderCellDef>Fecha</th>
+                <td mat-cell *matCellDef="let row">{{row.fecha | date:'dd/MM/yy HH:mm' }}</td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="nombresDeColumnas" ></tr>
+            <tr mat-row *matRowDef="let row; columns: nombresDeColumnas;"
+                class="element-row {{row.leido ? '' : 'noLeido'}}" (click)="seleccionarMensaje(row)"></tr>
+        </table>
+ </div>
