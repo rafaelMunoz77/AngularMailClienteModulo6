@@ -65,6 +65,7 @@ export class BarraHerramientasComponent implements OnInit {
    * Navegar hacia el componente de modificación de los datos del usuario
    */
   navegarHaciaDatosPersonales () {
+    this.router.navigate(['/datosUsuario']);
   }
 
 }

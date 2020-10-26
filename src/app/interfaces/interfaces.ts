@@ -24,3 +24,16 @@ export interface Usuario {
     sexo: number;
     imagen: string;
   }
+
+// Datos sobre una nacionalidad
+export interface Nacionalidad {
+    id: number;
+    descripcion: string;
+}
+
+// Datos sobre un tipo de sexo
+export interface TipoSexo {
+    id: number;  
+    descripcion: string;
+}
+  

@@ -105,4 +105,18 @@ export class UsuarioService {
 
 
 
+  /**
+   * Envia los datos de un usuario al servidor para su guardado
+   */
+  actualizaDatosUsuario (usuario: Usuario) {  
+    return this.http.post<String>('/usuario/update', usuario)
+    .pipe (
+      tap(strResult => {
+        // Tras actualizar los datos del usuario emito un cambio en el EventEmitter, para comunicar a la 
+        // barra de herramientas (que tiene un icono con datos del usuario) que ha habido cambios en los
+        // datos del usuario autenticado
+        this.emitirNuevoCambioEnUsuarioAutenticado();
+      }));
+  }
+
 }

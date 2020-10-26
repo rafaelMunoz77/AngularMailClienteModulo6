@@ -10,6 +10,9 @@ import { ListadoMensajesComponent } from './components/listado-mensajes/listado-
 import { HttpInterceptorService } from './services/http-interceptor.service';
 import { DialogoGeneralComponent } from './components/dialogo-general/dialogo-general.component';
 import { BarraHerramientasComponent } from './components/barra-herramientas/barra-herramientas.component';
+import { ImagenUsuarioComponent } from './components/imagen-usuario/imagen-usuario.component';
+import { CambioPasswordComponent } from './components/cambio-password/cambio-password.component';
+import { DatosUsuarioComponent } from './components/datos-usuario/datos-usuario.component';
 
 import { MatCardModule } from '@angular/material/card';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -22,8 +25,10 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatTooltipModule } from '@angular/material/tooltip';
-import { ImagenUsuarioComponent } from './components/imagen-usuario/imagen-usuario.component';
-import { CambioPasswordComponent } from './components/cambio-password/cambio-password.component';
+import { MatDatepickerModule } from '@angular/material/datepicker'; 
+import { MatNativeDateModule, MAT_DATE_LOCALE } from '@angular/material/core';
+import { MatSelectModule } from '@angular/material/select';
+
 
 
 
@@ -35,7 +40,8 @@ import { CambioPasswordComponent } from './components/cambio-password/cambio-pas
     DialogoGeneralComponent,
     BarraHerramientasComponent,
     ImagenUsuarioComponent,
-    CambioPasswordComponent
+    CambioPasswordComponent,
+    DatosUsuarioComponent
   ],
   imports: [
     BrowserModule,
@@ -52,9 +58,13 @@ import { CambioPasswordComponent } from './components/cambio-password/cambio-pas
     MatDialogModule,
     MatToolbarModule,
     MatMenuModule,
-    MatTooltipModule
+    MatTooltipModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatSelectModule
   ],
-  providers: [{provide: HTTP_INTERCEPTORS, useClass: HttpInterceptorService, multi: true }],
+  providers: [{provide: HTTP_INTERCEPTORS, useClass: HttpInterceptorService, multi: true },
+              {provide: MAT_DATE_LOCALE, useValue: 'es-ES'}], /* Necesario para que las fechas tengan formato español dd/MM/aaaa */ 
   bootstrap: [AppComponent]
 })
 export class AppModule { }

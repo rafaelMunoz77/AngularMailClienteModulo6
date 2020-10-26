@@ -1,0 +1,79 @@
+<div class="main-div">
+    <mat-card class="card" *ngIf="usuario != null">
+        <mat-card-header>
+            <mat-card-title>Mis datos personales</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>  
+            <form [formGroup]="form">
+                <div id="divCambiarImagen">
+                    <button mat-button (click)="fileInput.click()"> 
+                        <app-imagen-usuario [usuario]="usuario" [width]="300" [height]="300"></app-imagen-usuario>
+                    </button>
+                    <input hidden (change)="usuarioSeleccionaFicheroImagen()" #fileInput type="file" id="file">
+                    
+                    
+                </div>
+                <p style="text-align: center; margin-bottom: 25px;">Clic sobre la imagen para cambiarla</p>
+                <mat-form-field appearance="outline">
+                    <mat-label>Nombre de usuario</mat-label>
+                    <input matInput type="text" formControlName="usuario">
+                    <ng-container *ngIf="form.controls.usuario.errors != undefined">
+                        <div class="errorEnValidacion" *ngIf="form.controls.usuario.errors.required">Debe introducir
+                            algún valor
+                        </div>
+                    </ng-container>
+                </mat-form-field>
+                <mat-form-field appearance="outline">
+                    <mat-label>Correo electrónico</mat-label>
+                    <input matInput type="text" formControlName="email">
+                    <ng-container *ngIf="form.controls.email.errors != undefined">
+                        <div class="errorEnValidacion" *ngIf="form.controls.email.errors.required">Debe introducir algún
+                            valor</div>
+                        <div class="errorEnValidacion" *ngIf="form.controls.email.errors.email">El texto no es un correo
+                            electrónico/div></div>
+                    </ng-container>
+                </mat-form-field>
+                <mat-form-field appearance="outline">
+                    <mat-label>Nombre completo</mat-label>
+                    <input matInput type="text" formControlName="nombre">
+                    <ng-container *ngIf="form.controls.nombre.errors != undefined">
+                        <div class="errorEnValidacion" *ngIf="form.controls.nombre.errors.required">Debe introducir algún
+                            valor
+                        </div>
+                    </ng-container>
+                </mat-form-field>
+                <mat-form-field appearance="outline">
+                    <mat-label>Fecha de nacimiento</mat-label>
+                    <input matInput [matDatepicker]="picker" formControlName="fechaNacimiento">
+                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
+                    <ng-container *ngIf="form.controls.fechaNacimiento.errors != undefined">
+                        <div class="errorEnValidacion" *ngIf="form.controls.fechaNacimiento.errors.required">Debe
+                            introducir algún valor</div>
+                    </ng-container>
+                </mat-form-field>
+                <mat-form-field appearance="outline">
+                    <mat-label>Nacionalidad</mat-label>
+                    <mat-select formControlName="nacionalidad">
+                        <mat-option *ngFor="let nacionalidad of nacionalidades" [value]="nacionalidad.id">
+                            {{nacionalidad.descripcion}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <mat-form-field appearance="outline">
+                    <mat-label>Sexo</mat-label>
+                    <mat-select formControlName="sexo">
+                        <mat-option *ngFor="let tipo of tiposSexo" [value]="tipo.id">
+                            {{tipo.descripcion}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </form>
+        </mat-card-content>
+        <mat-card-actions>
+            <button mat-raised-button color="primary" [disabled]="form.invalid" (click)="actualizarDatos()">Actualizar
+                mis datos</button>
+            <button mat-raised-button color="secondary" (click)="cancelar()">Cancelar</button>
+        </mat-card-actions>
+    </mat-card>
+</div>

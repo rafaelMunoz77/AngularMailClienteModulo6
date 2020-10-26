@@ -1,0 +1,34 @@
+.errorEnValidacion {
+    margin-top: 5px;
+    color: #a87878;
+}
+
+.card {
+    max-width: 700px;
+}
+
+mat-form-field {
+    width: 100%;
+}
+
+.main-div{
+    margin-top: 25px;
+    margin-bottom: 25px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#divCambiarImagen {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 15px 0px 5px 0px;
+}
+
+img {
+    border-radius: 50px;
+    -webkit-border-radius: 50px;
+    -moz-border-radius: 50px;
+}
