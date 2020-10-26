@@ -1,26 +1,38 @@
 <div class="contenedorTabla">
-        <table mat-table [dataSource]="dataSourceTabla" class="example-table" id="tablaMensajes">
+    <table mat-table [dataSource]="dataSourceTabla" class="example-table" id="tablaMensajes">
+
+        <!-- Columna con checkbox -->
+        <ng-container matColumnDef="Select">
+            <th mat-header-cell *matHeaderCellDef ></th>
+            <td mat-cell *matCellDef="let row">
+                <mat-checkbox (click)="$event.stopPropagation()" (change)="$event ? selection.toggle(row) : null"
+                    [checked]="selection.isSelected(row)" [aria-label]="checkboxLabel(row)">
+                </mat-checkbox>
+            </td>
+        </ng-container>
+
+        <!-- Columna "De" -->
+        <ng-container matColumnDef="De">
+            <th mat-header-cell *matHeaderCellDef>De</th>
+            <td mat-cell *matCellDef="let row">{{row.remitente.nombre}}</td>
+        </ng-container>
+
+        <!-- Columna "Asunto" -->
+        <ng-container matColumnDef="Asunto">
+            <th mat-header-cell *matHeaderCellDef>Asunto</th>
+            <td mat-cell *matCellDef="let row">{{row.asunto}}</td>
+        </ng-container>
+
+        <!-- Columna "Fecha" -->
+        <ng-container matColumnDef="Fecha">
+            <th mat-header-cell *matHeaderCellDef>Fecha</th>
+            <td mat-cell *matCellDef="let row">{{row.fecha | date:'dd/MM/yy HH:mm' }}</td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="nombresDeColumnas"></tr>
+        <tr mat-row *matRowDef="let row; columns: nombresDeColumnas;" class="element-row {{row.leido ? '' : 'noLeido'}}"
+            (click)="seleccionarMensaje(row)"></tr>
+    </table>
+</div>
+<button mat-raised-button color="primary"  (click)="verMensajesSeleccionados()">Ver Selección</button>
  
-            <!-- Columna "De" -->
-            <ng-container matColumnDef="De">
-                <th mat-header-cell *matHeaderCellDef>De</th>
-                <td mat-cell *matCellDef="let row">{{row.remitente.nombre}}</td>
-            </ng-container>
-
-            <!-- Columna "Asunto" -->
-            <ng-container matColumnDef="Asunto">
-                <th mat-header-cell *matHeaderCellDef>Asunto</th>
-                <td mat-cell *matCellDef="let row">{{row.asunto}}</td>
-            </ng-container>
-
-            <!-- Columna "Fecha" -->
-            <ng-container matColumnDef="Fecha">
-                <th mat-header-cell *matHeaderCellDef>Fecha</th>
-                <td mat-cell *matCellDef="let row">{{row.fecha | date:'dd/MM/yy HH:mm' }}</td>
-            </ng-container>
-
-            <tr mat-header-row *matHeaderRowDef="nombresDeColumnas" ></tr>
-            <tr mat-row *matRowDef="let row; columns: nombresDeColumnas;"
-                class="element-row {{row.leido ? '' : 'noLeido'}}" (click)="seleccionarMensaje(row)"></tr>
-        </table>
- </div>
