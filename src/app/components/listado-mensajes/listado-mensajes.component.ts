@@ -103,9 +103,6 @@ export class ListadoMensajesComponent implements OnInit, AfterViewInit {
   }
 
 
-  verMensajesSeleccionados() {
-    console.log(this.selection);
-  }
 
   /** Whether the number of selected elements matches the total number of rows. */
   isAllSelected() {
@@ -128,5 +125,21 @@ export class ListadoMensajesComponent implements OnInit, AfterViewInit {
     }
     return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.id + 1}`;
   }
+
+
+  /**
+   *  Actualizar mensajes en función de la carpeta seleccionada
+   * */ 
+  cambioEnTiposDeMensajesVisualizados(indiceTiposDeMensajeSeleccionado) {
+    // He puesto los tabs en orden para que el indice del tipo de mensajes coincida con el orden
+    // de los tipos de mensajes que puede devolver el servidor
+    // 0 -> Recibidos
+    // 1 -> Enviados
+    // 2 -> Spam
+    // 3 -> Archivado
+    this.tipoListadoMensajes = indiceTiposDeMensajeSeleccionado
+    this.actualizaListadoMensajes();
+  }  
+
 
 }
