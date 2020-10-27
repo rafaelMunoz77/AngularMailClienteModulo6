@@ -1,0 +1,40 @@
+<mat-toolbar style="margin: 0px; padding: 0px; background: white;">
+    <button mat-button (click)="volver()" color="primary" aria-label="Cerrar" matTooltip="Cerrar">
+        <mat-icon>cancel</mat-icon>
+    </button>
+    <button mat-button (click)="accionSobreMensajes(1)" *ngIf="botonArchivarHabilitado()" color="primary" aria-label="Archivar" matTooltip="Archivar">
+        <mat-icon>archive</mat-icon>
+    </button>  
+    <button mat-button (click)="accionSobreMensajes(2)" *ngIf="botonSpamHabilitado()" color="primary" aria-label="Marcar como Spam" matTooltip="Marcar como Spam">
+        <mat-icon>report</mat-icon>
+    </button>
+    <button mat-button (click)="accionSobreMensajes(3)" *ngIf="botonEliminarHabilitado()" color="primary" aria-label="Eliminar" matTooltip="Eliminar">
+        <mat-icon>delete</mat-icon>
+    </button>
+    <button mat-button (click)="accionSobreMensajes(4)" *ngIf="botonMoverARecibidosHabilitado()" color="primary" aria-label="Mover a carpeta 'Recibidos'" matTooltip="Mover a carpeta 'Recibidos'">
+        <mat-icon>inbox</mat-icon>
+    </button>
+</mat-toolbar>
+<div class="row">
+    <div class="col colIzquierda"></div>
+    <div class="col">
+        <h2>{{mensaje.asunto}}</h2>
+    </div>
+</div>
+<div class="row">
+    <div class="col colIzquierda">
+        <app-imagen-usuario [usuario]="usuarioRemitente" width="50" height="50"></app-imagen-usuario>
+    </div>
+
+    <div class="col colDerecha">
+        <h3><span id="remitente">De: {{mensaje.remitente.nombre}}</span><br />
+            Para:
+            <ng-container *ngFor="let destinatario of mensaje.destinatarios; index as i">
+                {{destinatario.nombre}}<ng-container *ngIf="i < (mensaje.destinatarios.length-1)">, </ng-container>
+            </ng-container>
+        </h3>
+        <div id="cuerpo">
+            {{mensaje.cuerpo}}
+        </div>
+    </div>
+</div>
