@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { tap } from 'rxjs/operators';
-import { ListadoMensajes, Mensaje } from '../interfaces/interfaces';
+import { ListadoMensajes, Usuario } from '../interfaces/interfaces';
 
 
 // El decorador @Inyectable permite que el inyector de código cree una instancia de esta
@@ -53,6 +52,25 @@ export class MensajeService {
       'tipoAccion': tipoAccion
     };
     return this.http.post<string>('/mensajes/accionSobreMensajes', dto);
+  }
+
+
+
+  /**
+   * Envia un nuevo mensaje
+   */
+  enviarNuevoMensaje (destinatarios: Usuario[], asunto: string, cuerpo: string) {
+    var idsDestinatarios: number[] = []; // Construyo un array vacío de tipo number
+    // Para cada usuario recibido, tomo su "id" y lo agrego al array
+    destinatarios.forEach(usuario => idsDestinatarios.push(usuario.id)); 
+    // Construyo un objeto para enviar al servidor
+    var dto = {
+      'idsDestinatarios': idsDestinatarios,
+      'asunto': asunto,
+      'cuerpo': cuerpo
+    };
+    // realizo la petición y devuelvo el Observable
+    return this.http.put<string>('/mensajes/nuevo', dto);
   }
 
 }

@@ -13,6 +13,7 @@ import { BarraHerramientasComponent } from './components/barra-herramientas/barr
 import { ImagenUsuarioComponent } from './components/imagen-usuario/imagen-usuario.component';
 import { CambioPasswordComponent } from './components/cambio-password/cambio-password.component';
 import { DatosUsuarioComponent } from './components/datos-usuario/datos-usuario.component';
+import { NuevoMensajeComponent } from './components/nuevo-mensaje/nuevo-mensaje.component';
 
 import { MatCardModule } from '@angular/material/card';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -35,9 +36,8 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatDividerModule } from '@angular/material/divider';
 import { DetalleMensajeComponent } from './components/detalle-mensaje/detalle-mensaje.component';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
-
-
-
+import { MatChipsModule } from '@angular/material/chips';
+import { MatAutocompleteModule } from '@angular/material/autocomplete'; 
 
 
 @NgModule({
@@ -50,7 +50,8 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     ImagenUsuarioComponent,
     CambioPasswordComponent,
     DatosUsuarioComponent,
-    DetalleMensajeComponent
+    DetalleMensajeComponent,
+    NuevoMensajeComponent
   ],
   imports: [
     BrowserModule,
@@ -76,7 +77,9 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     MatTabsModule,
     MatPaginatorModule,
     MatDividerModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatChipsModule,
+    MatAutocompleteModule
   ],
   providers: [{provide: HTTP_INTERCEPTORS, useClass: HttpInterceptorService, multi: true },
               {provide: MAT_DATE_LOCALE, useValue: 'es-ES'}], /* Necesario para que las fechas tengan formato español dd/MM/aaaa */ 

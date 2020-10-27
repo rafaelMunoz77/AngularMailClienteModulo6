@@ -1,0 +1,44 @@
+<mat-toolbar style="margin: 0px; padding: 0px; background: white;">
+    <button mat-button (click)="volver()" color="primary" aria-label="Cerrar" matTooltip="Cerrar">
+        <mat-icon>cancel</mat-icon>
+    </button>
+    <button mat-button (click)="enviar()" color="primary" aria-label="Enviar nuevo mensaje"
+        matTooltip="Enviar el mensaje">
+        <mat-icon>send</mat-icon> Enviar
+    </button>
+</mat-toolbar>
+<div class="row">
+    <p>De: {{usuarioAutenticado != null? usuarioAutenticado.nombre: ''}}</p>
+    <div [formGroup]="form">
+        <mat-form-field class="ancho-100">
+            <mat-chip-list #chipList aria-label="Selección de destinatarios">
+                <mat-chip *ngFor="let destinatario of destinatariosSeleccionados" [selectable]="true" [removable]="true" (removed)="remove(destinatario)">
+                    {{destinatario.nombre}}
+                    <mat-icon matChipRemove>cancel</mat-icon>
+                </mat-chip>
+                <input placeholder="Para" #DestinatariosInput formControlName="destinatarios" [matAutocomplete]="auto"
+                    [matChipInputFor]="chipList" [matChipInputSeparatorKeyCodes]="separatorKeysCodes">
+            </mat-chip-list>
+            <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
+                <mat-option *ngFor="let destinatario of destinatariosFiltrados | async" [value]="destinatario">
+                    <img *ngIf="destinatario.imagen != null else elseBlock" src="data:image/png;base64,{{destinatario.imagen}}" />
+                    <ng-template #elseBlock>
+                        <img src="assets/images/usuarioGenerico.jpg" />
+                    </ng-template>
+                    {{destinatario.nombre + ' - ' + destinatario.email}}
+                </mat-option>
+            </mat-autocomplete>
+        </mat-form-field>
+
+        <mat-form-field class="ancho-100">
+            <mat-label>Asunto</mat-label>
+            <input matInput type="text" formControlName="asunto">
+        </mat-form-field>
+
+        <mat-form-field class="ancho-100">
+            <mat-label>Cuerpo del mensaje</mat-label>
+            <textarea matInput matTextareaAutosize formControlName="cuerpo"></textarea>
+        </mat-form-field>
+
+    </div>
+</div>
