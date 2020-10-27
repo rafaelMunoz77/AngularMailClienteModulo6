@@ -7,6 +7,10 @@ import { ComunicacionDeAlertasService } from '../../services/comunicacion-de-ale
 import { SelectionModel } from '@angular/cdk/collections';
 import { MatTableDataSource } from '@angular/material/table';
 import { UsuarioService } from '../../services/usuario.service';
+import { MatDialog } from '@angular/material/dialog';
+import { DetalleMensajeComponent } from '../detalle-mensaje/detalle-mensaje.component';
+
+
 
 /**
  * Decorador que permite que esta clase sea un componente, se debe especificar:
@@ -51,7 +55,8 @@ export class ListadoMensajesComponent implements OnInit, AfterViewInit {
   constructor(private mensajesService: MensajeService,
     private comunicacionAlertas: ComunicacionDeAlertasService,
     private usuarioService: UsuarioService,
-    private router: Router) { }
+    private router: Router,
+    private dialog: MatDialog) { }
 
   /**
    * Hook a la inicialización del componente, compruebo si el usuario está autenticado, si no lo
@@ -119,7 +124,18 @@ export class ListadoMensajesComponent implements OnInit, AfterViewInit {
    * sobre un mensaje.
    */
   seleccionarMensaje(mensaje: Mensaje) {
-    console.log(mensaje);
+    // Utilizo el MatDialog para construir un diálogo que muestre un componente.
+    // También le paso como datos, al diálogo, un objeto de tipo Mensaje
+    const dialogRef = this.dialog.open(DetalleMensajeComponent, {
+      width: '100%',
+      height: '90%',
+      data: mensaje,
+    });
+
+    // Me subscribo al evento de cierre del diálogo. Cuando se cierre actulizo el listado de mensajes
+    dialogRef.afterClosed().subscribe(result => {
+      this.actualizaListadoMensajes();
+    });
   }
 
 
@@ -244,6 +260,5 @@ export class ListadoMensajesComponent implements OnInit, AfterViewInit {
      * Se encarga de abrir el Diálogo de un nuevo mensaje, para redactarlo
      */
     nuevoMensaje() {
-
     }
 }

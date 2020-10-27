@@ -119,4 +119,12 @@ export class UsuarioService {
       }));
   }
 
+
+  /**
+   * Obtiene los datos de un usuario a partir de su id y da la opción de traer, o no, su imagen
+   */ 
+  getUsuario(id: number, incluirImagen: boolean = false): Observable<Usuario> {
+    var url= '/usuario/get?id=' + id + '&imagen=' + incluirImagen;
+    return this.http.get<Usuario>(url);
+  }
 }

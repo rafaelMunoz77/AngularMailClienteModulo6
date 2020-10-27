@@ -33,6 +33,9 @@ import { MatTableModule } from '@angular/material/table';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatDividerModule } from '@angular/material/divider';
+import { DetalleMensajeComponent } from './components/detalle-mensaje/detalle-mensaje.component';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+
 
 
 
@@ -46,7 +49,8 @@ import { MatDividerModule } from '@angular/material/divider';
     BarraHerramientasComponent,
     ImagenUsuarioComponent,
     CambioPasswordComponent,
-    DatosUsuarioComponent
+    DatosUsuarioComponent,
+    DetalleMensajeComponent
   ],
   imports: [
     BrowserModule,
@@ -71,7 +75,8 @@ import { MatDividerModule } from '@angular/material/divider';
     MatTableModule,
     MatTabsModule,
     MatPaginatorModule,
-    MatDividerModule
+    MatDividerModule,
+    MatSnackBarModule
   ],
   providers: [{provide: HTTP_INTERCEPTORS, useClass: HttpInterceptorService, multi: true },
               {provide: MAT_DATE_LOCALE, useValue: 'es-ES'}], /* Necesario para que las fechas tengan formato español dd/MM/aaaa */ 
