@@ -9,6 +9,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { UsuarioService } from '../../services/usuario.service';
 import { MatDialog } from '@angular/material/dialog';
 import { DetalleMensajeComponent } from '../detalle-mensaje/detalle-mensaje.component';
+import { NuevoMensajeComponent } from '../nuevo-mensaje/nuevo-mensaje.component';
 
 
 
@@ -260,5 +261,13 @@ export class ListadoMensajesComponent implements OnInit, AfterViewInit {
      * Se encarga de abrir el Diálogo de un nuevo mensaje, para redactarlo
      */
     nuevoMensaje() {
-    }
+      const dialogRef = this.dialog.open(NuevoMensajeComponent, {
+        width: '100%',
+        height: '90%'
+      });
+  
+      dialogRef.afterClosed().subscribe(result => {
+        this.actualizaListadoMensajes();
+      });
+      }
 }

@@ -127,4 +127,16 @@ export class UsuarioService {
     var url= '/usuario/get?id=' + id + '&imagen=' + incluirImagen;
     return this.http.get<Usuario>(url);
   }
+
+
+
+  /**
+   * Obtiene un listado de usuarios filtrados por su nombre o email
+   */
+  filterUsuariosByNombreOrEmail(filtro: string): Observable<Usuario[]> {
+    return this.http.get<Usuario[]>('/usuario/filterByNombreOrEmail?filtro=' + filtro).pipe(
+      tap(result => console.log(result))
+    );
+  }
+
 }
