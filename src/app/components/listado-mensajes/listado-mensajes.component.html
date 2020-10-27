@@ -1,6 +1,37 @@
 <div class="contenedorTabla">
 
     <mat-toolbar style="margin: 0px 10px;">
+        <mat-checkbox (change)="$event ? masterToggle() : null" [checked]="selection.hasValue() && isAllSelected()"
+            [indeterminate]="selection.hasValue() && !isAllSelected()" [aria-label]="checkboxLabel()"
+            matTooltip="Selección sobre todos los mensajes">
+        </mat-checkbox>
+        <button mat-button color="primary" aria-label="Actualizar" matTooltip="Actualizar"
+            (click)="actualizaListadoMensajes()">
+            <mat-icon>refresh</mat-icon>
+        </button>
+        <mat-divider [vertical]="true"></mat-divider>
+        <button mat-button color="primary" aria-label="Redactar nuevo mensaje" matTooltip="Redactar nuevo mensaje"
+            (click)="nuevoMensaje()">
+            <mat-icon>add</mat-icon>&nbsp;Redactar
+        </button>
+        <mat-divider [vertical]="true"
+            *ngIf="botonArchivarHabilitado() || botonSpamHabilitado() || botonEliminarHabilitado()"></mat-divider>
+        <button mat-button (click)="accionSobreMensajes(1)" color="primary" aria-label="Archivar" matTooltip="Archivar"
+            *ngIf="botonArchivarHabilitado()">
+            <mat-icon>archive</mat-icon>
+        </button>
+        <button mat-button (click)="accionSobreMensajes(2)" color="primary" aria-label="Marcar como Spam" matTooltip="Marcar como Spam"
+            *ngIf="botonSpamHabilitado()">
+            <mat-icon>report</mat-icon>
+        </button>
+        <button mat-button (click)="accionSobreMensajes(3)" color="primary" aria-label="Eliminar" matTooltip="Eliminar"
+            *ngIf="botonEliminarHabilitado()">
+            <mat-icon>delete</mat-icon>
+        </button>
+        <button mat-button (click)="accionSobreMensajes(4)" color="primary" aria-label="Mover a recibidos"
+            matTooltip="Mover a recibidos" *ngIf="botonMoverARecibidosHabilitado()">
+            <mat-icon>inbox</mat-icon>
+        </button>
         <span class="example-spacer"></span>
         <mat-paginator [length]="listadoMensajes.totalMensajes" [pageIndex]="0" [pageSize]="10" [hidePageSize]="true"
             [pageSizeOptions]="[5, 10, 25, 100]" (page)="actualizaListadoMensajes()" [showFirstLastButtons]="true">
@@ -51,7 +82,7 @@
         <!-- Columna "De" -->
         <ng-container matColumnDef="De">
             <th mat-header-cell *matHeaderCellDef>De</th>
-            <td mat-cell *matCellDef="let row">{{row.remitente.nombre}}</td>
+            <td mat-cell *matCellDef="let row">{{getTextoColumnaRemitente(row)}}</td>
         </ng-container>
 
         <!-- Columna "Asunto" -->

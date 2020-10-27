@@ -15,3 +15,17 @@ tr.element-row:hover {
 .noLeido {
     font-weight: bold;
 }
+
+.example-spacer {
+    flex: 1 1 auto;
+  }
+
+.mat-divider-vertical{
+    height: 30px;
+    width: 0px !important;
+    position: inherit !important;
+}
+
+.tab-icon {
+    margin-right: 10px;
+}

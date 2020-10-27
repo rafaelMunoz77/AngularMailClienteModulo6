@@ -163,4 +163,87 @@ export class ListadoMensajesComponent implements OnInit, AfterViewInit {
   }  
 
 
+
+  /**
+   * Obtiene en un array todos los identificadores de mensajes seleccionados
+   */
+  getIdsMensajesSeleccionados (): number[] {
+    var idsMensajesSeleccionados = [];
+    this.selection.selected.forEach((item, index) => {
+      idsMensajesSeleccionados.push(item.id);
+    });
+    return idsMensajesSeleccionados;
+  }
+
+
+  /**
+   * El tipo de marca determina la acción a realizar sobre los mensajes
+	 * 		0 -> marca como mensajes leídos
+	 * 		1 -> marca como mensajes archivados
+	 * 		2 -> marca como mensajes spam
+	 * 		3 -> marca como mensajes eliminados
+	 * 		4 -> mueve el mensaje a "recibidos", elimina las marcas de "leído", "archivado", "spam" y "eliminado"
+   */
+  accionSobreMensajes(tipoAccion: number) {
+    this.mensajesService.accionSobreMensajes(this.getIdsMensajesSeleccionados(), tipoAccion).subscribe(strResult => {
+      if (strResult['result'] == 'fail') {
+        this.comunicacionAlertas.abrirDialogError('Error al realizar la operación. Inténtelo más tarde.')
+      }
+      else {
+        this.actualizaListadoMensajes();
+      }
+    });
+  }
+
+
+  /**
+   * En función del tipo de mensaje (recibidos, enviados, etc...) obtiene un texto diferente
+   * para la columna del remitente del mensaje
+   */
+  getTextoColumnaRemitente (mensaje: Mensaje) {
+    if (this.usuarioAutenticado.id != mensaje.remitente.id) {
+      return 'De: ' + mensaje.remitente.nombre
+    }
+    else {
+      var str: string = 'Para: ';
+      mensaje.destinatarios.forEach(function(destinatario, i, destinatarios) {
+        str += destinatario.nombre;
+        if (i < (destinatarios.length-1)) {
+          str += ', '; 
+        }
+      })
+      return str;
+    }
+  }
+
+
+    // Métodos para controlar cuando los botones están habilitados o deshabilitados
+    hayAlgunElementoSeleccionadoEnTabla(): boolean {
+      return this.selection.selected.length > 0;
+    }
+  
+    botonArchivarHabilitado(): boolean {
+      return this.tipoListadoMensajes == MensajeService.RECIBIDOS && this.hayAlgunElementoSeleccionadoEnTabla();
+    }
+  
+    botonSpamHabilitado(): boolean {
+      return this.tipoListadoMensajes == MensajeService.RECIBIDOS && this.hayAlgunElementoSeleccionadoEnTabla();
+    }
+  
+    botonEliminarHabilitado(): boolean {
+      return this.tipoListadoMensajes != MensajeService.ENVIADOS && this.hayAlgunElementoSeleccionadoEnTabla();
+    }
+  
+    botonMoverARecibidosHabilitado(): boolean {
+      return (this.tipoListadoMensajes == MensajeService.SPAM || this.tipoListadoMensajes == MensajeService.ARCHIVADOS) 
+        && this.hayAlgunElementoSeleccionadoEnTabla();
+    }
+  
+
+    /**
+     * Se encarga de abrir el Diálogo de un nuevo mensaje, para redactarlo
+     */
+    nuevoMensaje() {
+
+    }
 }
