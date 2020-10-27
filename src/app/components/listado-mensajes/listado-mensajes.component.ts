@@ -40,6 +40,9 @@ export class ListadoMensajesComponent implements OnInit, AfterViewInit {
   // Lista de mensajes seleccionados. Cuando hagamos clic sobre el checkbox de cada mensaje, modificaremos
   // esta lista de mensajes seleccionados
   selection = new SelectionModel<Mensaje>(true, []);
+  // El decorador @ViewChild permite acceder a un subelemento de este component, del tipo especificado. En
+  // este caso es del tipo MatPaginator
+  @ViewChild(MatPaginator) paginator: MatPaginator;
 
 
   /**
@@ -71,7 +74,24 @@ export class ListadoMensajesComponent implements OnInit, AfterViewInit {
    * a mostrar
    */
   ngAfterViewInit() {
+    this.configuraEtiquetasDelPaginador();
     this.actualizaListadoMensajes();
+  }
+
+  /**
+   * Configura las etiquetas y comportamiento del paginador
+   */
+  private configuraEtiquetasDelPaginador() {
+    this.paginator._intl.itemsPerPageLabel = "Mensajes por página";
+    this.paginator._intl.nextPageLabel = "Siguiente";
+    this.paginator._intl.previousPageLabel = "Anterior";
+    this.paginator._intl.firstPageLabel = "Primera";
+    this.paginator._intl.lastPageLabel = "Última";
+    this.paginator._intl.getRangeLabel = (page: number, pageSize: number, length: number) => {
+      const start = page * pageSize + 1;
+      const end = (page + 1) * pageSize;
+      return `${start} - ${end} de ${length}`;
+    };
   }
 
   /**
@@ -81,7 +101,7 @@ export class ListadoMensajesComponent implements OnInit, AfterViewInit {
   actualizaListadoMensajes() {
     this.comunicacionAlertas.abrirDialogCargando(); // Pantalla de carga
     // Petición de mensajes al servicio
-    this.mensajesService.getListadoMensajes(this.tipoListadoMensajes, 0, 10).subscribe(data => {
+    this.mensajesService.getListadoMensajes(this.tipoListadoMensajes, this.paginator.pageIndex, this.paginator.pageSize).subscribe(data => {
       if (data["result"] == "fail") { // Algo ha fallado
         this.comunicacionAlertas.abrirDialogError('Imposible obtener los mensajes desde el servidor');
       }
@@ -131,6 +151,7 @@ export class ListadoMensajesComponent implements OnInit, AfterViewInit {
    *  Actualizar mensajes en función de la carpeta seleccionada
    * */ 
   cambioEnTiposDeMensajesVisualizados(indiceTiposDeMensajeSeleccionado) {
+    this.paginator.firstPage(); // Reinicio el paginador
     // He puesto los tabs en orden para que el indice del tipo de mensajes coincida con el orden
     // de los tipos de mensajes que puede devolver el servidor
     // 0 -> Recibidos
@@ -142,4 +163,87 @@ export class ListadoMensajesComponent implements OnInit, AfterViewInit {
   }  
 
 
+
+  /**
+   * Obtiene en un array todos los identificadores de mensajes seleccionados
+   */
+  getIdsMensajesSeleccionados (): number[] {
+    var idsMensajesSeleccionados = [];
+    this.selection.selected.forEach((item, index) => {
+      idsMensajesSeleccionados.push(item.id);
+    });
+    return idsMensajesSeleccionados;
+  }
+
+
+  /**
+   * El tipo de marca determina la acción a realizar sobre los mensajes
+	 * 		0 -> marca como mensajes leídos
+	 * 		1 -> marca como mensajes archivados
+	 * 		2 -> marca como mensajes spam
+	 * 		3 -> marca como mensajes eliminados
+	 * 		4 -> mueve el mensaje a "recibidos", elimina las marcas de "leído", "archivado", "spam" y "eliminado"
+   */
+  accionSobreMensajes(tipoAccion: number) {
+    this.mensajesService.accionSobreMensajes(this.getIdsMensajesSeleccionados(), tipoAccion).subscribe(strResult => {
+      if (strResult['result'] == 'fail') {
+        this.comunicacionAlertas.abrirDialogError('Error al realizar la operación. Inténtelo más tarde.')
+      }
+      else {
+        this.actualizaListadoMensajes();
+      }
+    });
+  }
+
+
+  /**
+   * En función del tipo de mensaje (recibidos, enviados, etc...) obtiene un texto diferente
+   * para la columna del remitente del mensaje
+   */
+  getTextoColumnaRemitente (mensaje: Mensaje) {
+    if (this.usuarioAutenticado.id != mensaje.remitente.id) {
+      return 'De: ' + mensaje.remitente.nombre
+    }
+    else {
+      var str: string = 'Para: ';
+      mensaje.destinatarios.forEach(function(destinatario, i, destinatarios) {
+        str += destinatario.nombre;
+        if (i < (destinatarios.length-1)) {
+          str += ', '; 
+        }
+      })
+      return str;
+    }
+  }
+
+
+    // Métodos para controlar cuando los botones están habilitados o deshabilitados
+    hayAlgunElementoSeleccionadoEnTabla(): boolean {
+      return this.selection.selected.length > 0;
+    }
+  
+    botonArchivarHabilitado(): boolean {
+      return this.tipoListadoMensajes == MensajeService.RECIBIDOS && this.hayAlgunElementoSeleccionadoEnTabla();
+    }
+  
+    botonSpamHabilitado(): boolean {
+      return this.tipoListadoMensajes == MensajeService.RECIBIDOS && this.hayAlgunElementoSeleccionadoEnTabla();
+    }
+  
+    botonEliminarHabilitado(): boolean {
+      return this.tipoListadoMensajes != MensajeService.ENVIADOS && this.hayAlgunElementoSeleccionadoEnTabla();
+    }
+  
+    botonMoverARecibidosHabilitado(): boolean {
+      return (this.tipoListadoMensajes == MensajeService.SPAM || this.tipoListadoMensajes == MensajeService.ARCHIVADOS) 
+        && this.hayAlgunElementoSeleccionadoEnTabla();
+    }
+  
+
+    /**
+     * Se encarga de abrir el Diálogo de un nuevo mensaje, para redactarlo
+     */
+    nuevoMensaje() {
+
+    }
 }
