@@ -1,6 +1,70 @@
 /* You can add global styles to this file, and also import other style files */
 
+// Para personalizar los colores de Angular Material podemos utilizar uno de los 4 siguientes
 @import "~@angular/material/prebuilt-themes/indigo-pink.css";
+//@import "~@angular/material/prebuilt-themes/deeppurple-amber.css";
+//@import "~@angular/material/prebuilt-themes/pink-bluegrey.css";
+//@import "~@angular/material/prebuilt-themes/purple-green.css";
+
+
+// O también podemos personalizar los estilos a través de los colores: primary, accent, warn...
+// Para elegir paletas gráficas recomiendo visitar http://mcg.mbitson.com y elegir
+// "Angular JS 2 (Material 2)" .  Más info en https://material.angular.io/guide/theming
+/*
+@import "~@angular/material/theming";
+
+@include mat-core();
+
+$mat-angularMail-primary: (
+    50 : #f2f8ef,
+    100 : #dfedd8,
+    200 : #c9e2be,
+    300 : #b3d6a4,
+    400 : #a3cd91,
+    500 : #93c47d,
+    600 : #8bbe75,
+    700 : #80b66a,
+    800 : #76af60,
+    900 : #64a24d,
+    A100 : #ffffff,
+    A200 : #daffcd,
+    A400 : #b4ff9a,
+    A700 : #a1ff80,
+    contrast: (
+        50 : #000000,
+        100 : #000000,
+        200 : #000000,
+        300 : #000000,
+        400 : #000000,
+        500 : #000000,
+        600 : #000000,
+        700 : #000000,
+        800 : #000000,
+        900 : #000000,
+        A100 : #000000,
+        A200 : #000000,
+        A400 : #000000,
+        A700 : #000000,
+    )
+);
+
+$theming-material-components-primary: mat-palette($mat-angularMail-primary);
+$theming-material-components-accent: mat-palette($mat-pink, A200, A100, A400);
+$theming-material-components-warn: mat-palette($mat-red);
+
+$theming-material-components-theme: mat-light-theme(
+  $theming-material-components-primary,
+  $theming-material-components-accent,
+  $theming-material-components-warn
+);
+
+@include angular-material-theme($theming-material-components-theme);
+*/
+
+
+
+/* Estilos generales */
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
